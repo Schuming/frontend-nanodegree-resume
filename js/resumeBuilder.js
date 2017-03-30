@@ -16,7 +16,7 @@
          "Linux",
          "Qt"
      ],
-     "bioPic": "images/schuming.jpg",
+     "biopic": "images/schuming.jpg",
  };
 
  var education = {
@@ -25,7 +25,8 @@
          "location": "Shanghai，CN",
          "degree": "Bachelor",
          "dates": "2008-2012",
-         "majors": "Communication & Information Engineering"
+         "majors": ["Communication & Information Engineering"],
+         "location": "Shanghai，CN"
      }],
      "onlineCourses": [{
          "title": "Deep Learning Nanodegree",
@@ -55,7 +56,7 @@
 
 
  var projects = {
-     "project": [{
+     "projects": [{
              "title": "News Website",
              "dates": "11/2016",
              "description": "Responsive, mobile first news website",
@@ -80,25 +81,20 @@
      var formattedgithub = HTMLgithub.replace("%data%", bio.contacts.github);
      var formattedlocation = HTMLlocation.replace("%data%", bio.contacts.location);
      var formattedMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-     var formattedImage = HTMLbioPic.replace("%data%", bio.bioPic);
+     var formattedImage = HTMLbioPic.replace("%data%", bio.biopic);
      $("#header").prepend(formattedName, formattedRole);
      $("#header").append(formattedImage, formattedMsg);
      $("#topContacts, #footerContacts").append(formattedmobile, formattedemail, formattedgithub, formattedlocation);
+
      if (bio.skills.length > 0) {
          $("#header").append(HTMLskillsStart);
-         var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
-         $("#skills").append(formattedSkill);
-         formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
-         $("#skills").append(formattedSkill);
-         formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
-         $("#skills").append(formattedSkill);
-         formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
-         $("#skills").append(formattedSkill);
-         formattedSkill = HTMLskills.replace("%data%", bio.skills[4]);
-         $("#skills").append(formattedSkill);
+         bio.skills.forEach(function(skill) {
+             var formattedSkill = HTMLskills.replace("%data%", skill);
+             $("#skills").append(formattedSkill);
+         });
      }
  };
- bio.display();
+
  work.display = function() {
      work.jobs.forEach(function(job) {
          $("#workExperience").append(HTMLworkStart);
@@ -106,12 +102,13 @@
          var formattedTitle = HTMLworkTitle.replace("%data%", job.title);
          var formattedDates = HTMLworkDates.replace("%data%", job.dates);
          var formattedDescription = HTMLworkDescription.replace("%data%", job.description);
-         $(".work-entry:last").append(formattedEmployer + formattedTitle, formattedDates, formattedDescription);
+         var formattedlocation = HTMLworkLocation.replace("%data%", job.location);
+         $(".work-entry:last").append(formattedEmployer + formattedTitle, formattedDates, formattedDescription, formattedlocation);
      });
  };
- work.display();
+
  projects.display = function() {
-     projects.project.forEach(function(project) {
+     projects.projects.forEach(function(project) {
          $("#projects").append(HTMLprojectStart);
          var formattedTitle = HTMLprojectTitle.replace("%data%", project.title);
          var formattedDates = HTMLprojectDates.replace("%data%", project.dates);
@@ -127,7 +124,7 @@
      });
  };
 
- projects.display();
+
  education.display = function() {
      education.schools.forEach(function(school) {
          $("#education").append(HTMLschoolStart);
@@ -135,7 +132,8 @@
          var formatteddegree = HTMLschoolDegree.replace("%data%", school.degree);
          var formattedschooldate = HTMLschoolDates.replace("%data%", school.dates);
          var formattedmajor = HTMLschoolMajor.replace("%data%", school.majors);
-         $(".education-entry:last").append(formattedschoolname + formatteddegree, formattedschooldate, formattedmajor);
+         var formattedlocation = HTMLschoolLocation.replace("%data%", school.location);
+         $(".education-entry:last").append(formattedschoolname + formatteddegree, formattedschooldate, formattedmajor, formattedlocation);
      });
 
 
@@ -149,8 +147,12 @@
          $(".education-entry:last").append(formattedcourse + formattedschool, formatteddate);
      });
  };
+
+
+
+
+ bio.display();
+ work.display();
+ projects.display();
  education.display();
-
-
-
  $("#mapDiv").append(googleMap);
