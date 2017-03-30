@@ -4,7 +4,7 @@
      "contacts": {
          "mobile": "+(86)186xxxx1227",
          "email": "schuming89@gmail.com",
-         "giihub": "https://github.com/Schuming",
+         "github": "https://github.com/Schuming",
          "location": "Shanghai"
      },
      "welcomeMessage": "Hi,welcome to my page!",
