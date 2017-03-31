@@ -22,7 +22,6 @@
  var education = {
      "schools": [{
          "name": "Shanghai University",
-         "location": "Shanghai，CN",
          "degree": "Bachelor",
          "dates": "2008-2012",
          "majors": ["Communication & Information Engineering"],
